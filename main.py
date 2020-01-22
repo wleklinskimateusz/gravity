@@ -1,5 +1,4 @@
 import pymunk
-import time
 import pyglet
 from pymunk.pyglet_util import DrawOptions
 
