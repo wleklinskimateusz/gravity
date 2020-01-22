@@ -1,4 +1,5 @@
 import pymunk
+import time
 import pyglet
 from pymunk.pyglet_util import DrawOptions
 
@@ -10,13 +11,13 @@ G = 50000
 
 EARTH_VELOCITY = (0, 0)
 MARS_VELOCITY = (0, 0)
-WENUS_VELOCITY = (0, 0)
+VENUS_VELOCITY = (0, 0)
 EARTH_MASS = 35
-WENUS_MASS  = 50
+VENUS_MASS  = 50
 MARS_MASS = 50
 
 
-window = pyglet.window.Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, False)
+window = pyglet.window.Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, True)
 options = DrawOptions()
 
 space = pymunk.Space()
@@ -32,15 +33,15 @@ Mars.position = 0.4*SCREEN_WIDTH, 0.5*SCREEN_HEIGHT
 Mars_shape = pymunk.Circle(Mars, 20)
 Mars._set_velocity(MARS_VELOCITY)
 
-Wenus = pymunk.Body(WENUS_MASS, 50000)
-Wenus.position = 0.5*SCREEN_WIDTH, 0.75*SCREEN_HEIGHT
-Wenus_shape = pymunk.Circle(Wenus, 25)
-Wenus._set_velocity(WENUS_VELOCITY)
+Venus = pymunk.Body(VENUS_MASS, 50000)
+Venus.position = 0.5*SCREEN_WIDTH, 0.75*SCREEN_HEIGHT
+Venus_shape = pymunk.Circle(Venus, 25)
+Venus._set_velocity(VENUS_VELOCITY)
 
 
 
 
-space.add(Earth, Earth_shape, Mars, Mars_shape, Wenus, Wenus_shape)
+space.add(Earth, Earth_shape, Mars, Mars_shape, Venus, Venus_shape)
 
 @window.event
 def on_draw():
@@ -55,11 +56,11 @@ def Force(obj1, obj2):
 def update(dt):
     space.step(dt)
     fmars_earth = Force(Mars, Earth)
-    fwenus_earth = Force(Wenus, Earth)
-    fmars_wenus = Force(Mars, Wenus)
-    Earth._set_force(-fmars_earth - fwenus_earth)
-    Mars._set_force(fmars_earth + fmars_wenus)
-    Wenus._set_force(fwenus_earth - fmars_wenus)
+    fvenus_earth = Force(Venus, Earth)
+    fmars_venus = Force(Mars, Venus)
+    Earth._set_force(-fmars_earth - fvenus_earth)
+    Mars._set_force(fmars_earth + fmars_venus)
+    Venus._set_force(fvenus_earth - fmars_venus)
 
 if __name__ == "__main__":
     pyglet.clock.schedule_interval(update, 1.0/60)
