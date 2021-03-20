@@ -73,14 +73,6 @@ def on_mouse_press(x, y, button, modifiers):
         space.add(planet, planet_shape)
 
 
-@window.event
-def on_key_press(symbol, modifiers):
-    if symbol == key.SPACE:
-        for body in space.bodies:
-            shape = body.shapes
-            space.remove(shape)
-            space.remove(body)
-
 def Force(obj1, obj2):
     r = obj1.position - obj2.position
     output = -r * G * obj1.mass * obj2.mass / r.length ** 3
