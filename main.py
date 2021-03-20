@@ -83,7 +83,7 @@ def on_key_press(symbol, modifiers):
 
 def Force(obj1, obj2):
     r = obj1.position - obj2.position
-    output = -r * G * obj1.mass * obj2.mass / r.get_length() ** 3
+    output = -r * G * obj1.mass * obj2.mass / r.length ** 3
     return output
 
 def update(dt):
